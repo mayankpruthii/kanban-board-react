@@ -1,5 +1,21 @@
 .App {
   text-align: center;
+  display: flex;
+  padding: 1rem 0;
+}
+
+.App div {
+  width: 20%;
+  margin: auto;
+}
+
+.App div div {
+  width: 100%;
+  color: white;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: blue;
 }
 
 .App-logo {
