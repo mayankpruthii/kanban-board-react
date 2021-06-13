@@ -9,7 +9,7 @@ function Items(props) {
 	return (
 		<div className={classes.columnStatus}>
 			<h3 className={classes.statusHeading}>{status}</h3>
-			<div className={classes.list}>
+			<div className={classes.list} data-testid="items">
 				{listItemsSorted.length !== 0 ? (
 					<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, status)}>
 						{listItemsSorted}
