@@ -38,6 +38,12 @@
 	padding: 0.5em;
 	background-color: white;
 	border-radius: 12px;
+  opacity: 100%;
+}
+
+.itemCard:-moz-drag-over {
+  opacity: 100%;
+  fill-opacity: 100%;
 }
 
 .addNewCategory {
