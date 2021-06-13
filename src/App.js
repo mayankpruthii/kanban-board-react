@@ -42,6 +42,12 @@ function App() {
 		);
 	}
 
+	const newListItemInputHandler = (item, itemStatus) => {
+		// let _list = list;
+		console.log("trigg");
+		listHandler([...list, { name: item, status: itemStatus }]);
+	};
+
 	// event handlers
 	const handleDragStart = (e, itemName) => {
 		e.dataTransfer.setData("id", itemName);
@@ -64,13 +70,13 @@ function App() {
 	};
 
 	// make an object sorted wrt status
-  // {done: [], pending: []}
+	// {done: [], pending: []}
 	let listItemsSorted = {};
 	listStatus.forEach((status) => {
 		listItemsSorted[status] = [];
 	});
 
-  list.forEach((item, _index) => {
+	list.forEach((item, _index) => {
 		listItemsSorted[item.status].push(
 			<div key={_index} className="itemCard" onDragStart={(e) => handleDragStart(e, item.name)} draggable>
 				{item.name}
@@ -82,7 +88,15 @@ function App() {
 		<div class="container">
 			<div class="itemCategory">
 				{listStatus.map((key) => {
-					return <Items handleDragOver={handleDragOver} handleDrop={handleDrop} status={key} listItemsSorted={listItemsSorted[key]} />;
+					return (
+						<Items
+							newListItemInputHandler={newListItemInputHandler}
+							handleDragOver={handleDragOver}
+							handleDrop={handleDrop}
+							status={key}
+							listItemsSorted={listItemsSorted[key]}
+						/>
+					);
 				})}
 				{/* <div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "pending")}>
 					<h1>Pending</h1>

@@ -28,6 +28,8 @@
 .addListItem {
     margin-top: 0.5em;
     display: flex;
+    align-items: stretch;
+    justify-content: center;
     gap: 0.2em;
 }
 
@@ -43,6 +45,7 @@
 .addListItem button {
     background-color: orange;
     color: white;
+    margin-top: 0.25em;
     border: none;
     border-radius: 12px;
     cursor: pointer;

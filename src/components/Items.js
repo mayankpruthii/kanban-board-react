@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./Items.module.css";
 
 function Items(props) {
-	const { handleDragOver, handleDrop, status, listItemsSorted } = props;
+	const newListItem = useRef(null);
+
+	// const newListItemInputHandler = () => {
+	// 	console.log(newListItem.current.value);
+	// };
+
+	const { handleDragOver, handleDrop, status, listItemsSorted, newListItemInputHandler } = props;
 
 	return (
 		<div className={classes.columnStatus}>
@@ -18,8 +24,10 @@ function Items(props) {
 					</div>
 				)}
 				<div className={classes.addListItem}>
-					<input placeholder="Add new task here" type="text" />
-					<button clasName={classes.addListItemButton}>Add</button>
+					<input ref={newListItem} placeholder="Add new task here" type="text" />
+					<button onClick={() => newListItemInputHandler(newListItem.current.value, status)} clasName={classes.addListItemButton}>
+						Add
+					</button>
 				</div>
 			</div>
 		</div>
