@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import Items from "./components/Items";
 import "./App.css";
 
 function App() {
+	// list is the actual list of all items that are stored in here
+	// see useEffect for its initialState
 	let [list, listHandler] = useState([]);
 
+	// listStatus is the category of the list i.e done, pending etc
+	let [listStatus, listStatusHandler] = useState([]);
+
 	useEffect(() => {
-		let _list = [
+		const _list = [
 			{
 				name: "html",
 				status: "done",
@@ -24,12 +30,21 @@ function App() {
 			},
 		];
 		listHandler(_list);
-		console.log(list);
+		listStatusHandler(["done", "pending"]);
 	}, []);
 
+	// check for small screens
+	if (window.innerWidth < 500) {
+		return (
+			<div className="App">
+				<p>This application is not supported on devices having width smaller than 500pixels.</p>
+			</div>
+		);
+	}
+
+	// event handlers
 	const handleDragStart = (e, itemName) => {
-		// e.preventDefault();
-    e.dataTransfer.setData("id", itemName) 
+		e.dataTransfer.setData("id", itemName);
 	};
 
 	const handleDragOver = (e) => {
@@ -37,40 +52,47 @@ function App() {
 	};
 
 	const handleDrop = (e, status) => {
-		// e.preventDefault();
-    let id = e.dataTransfer.getData("id");
-    console.log(list);
-    let _list = list.filter((item) => {
-      if(item.name === id) {
-        item.status = status
-      }
-      return item;
-    })
-    listHandler(_list)
+		let id = e.dataTransfer.getData("id");
+		console.log(list);
+		let _list = list.filter((item) => {
+			if (item.name === id) {
+				item.status = status;
+			}
+			return item;
+		});
+		listHandler(_list);
 	};
 
-	let listItems = {
-		done: [],
-		pending: [],
-	};
+	// make an object sorted wrt status
+  // {done: [], pending: []}
+	let listItemsSorted = {};
+	listStatus.forEach((status) => {
+		listItemsSorted[status] = [];
+	});
 
-	list.forEach((item, _index) => {
-		listItems[item.status].push(
-			<div key={_index} onDragStart={(e) => handleDragStart(e, item.name)} draggable>
+  list.forEach((item, _index) => {
+		listItemsSorted[item.status].push(
+			<div key={_index} className="itemCard" onDragStart={(e) => handleDragStart(e, item.name)} draggable>
 				{item.name}
 			</div>,
 		);
 	});
 
 	return (
-		<div className="App">
-			<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "pending")}>
-				<h1>Pending</h1>
-				{listItems.pending}
-			</div>
-			<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "done")}>
-				<h1>Done</h1>
-				{listItems.done}
+		<div class="container">
+			<div class="itemCategory">
+				{listStatus.map((key) => {
+					return <Items handleDragOver={handleDragOver} handleDrop={handleDrop} status={key} listItemsSorted={listItemsSorted[key]} />;
+				})}
+				{/* <div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "pending")}>
+					<h1>Pending</h1>
+					{listStatus.pending}
+				</div>
+
+				<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "done")}>
+					<h1>Done</h1>
+					{listStatus.done}
+				</div> */}
 			</div>
 		</div>
 	);
