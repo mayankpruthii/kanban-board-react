@@ -4,10 +4,6 @@ import classes from "./Items.module.css";
 function Items(props) {
 	const newListItem = useRef(null);
 
-	// const newListItemInputHandler = () => {
-	// 	console.log(newListItem.current.value);
-	// };
-
 	const { handleDragOver, handleDrop, status, listItemsSorted, newListItemInputHandler } = props;
 
 	return (
@@ -25,9 +21,7 @@ function Items(props) {
 				)}
 				<div className={classes.addListItem}>
 					<input ref={newListItem} placeholder="Add new task here" type="text" />
-					<button onClick={() => newListItemInputHandler(newListItem.current.value, status)} clasName={classes.addListItemButton}>
-						Add
-					</button>
+					<button onClick={() => newListItemInputHandler(newListItem, status)}>Add</button>
 				</div>
 			</div>
 		</div>

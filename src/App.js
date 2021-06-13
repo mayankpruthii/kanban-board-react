@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Items from "./components/Items";
 import "./App.css";
 
@@ -10,27 +10,29 @@ function App() {
 	// listStatus is the category of the list i.e done, pending etc
 	let [listStatus, listStatusHandler] = useState([]);
 
+  let statusInput = useRef(null);
+
 	useEffect(() => {
 		const _list = [
 			{
 				name: "html",
-				status: "done",
+				status: "Done",
 			},
 			{
 				name: "javascript",
-				status: "done",
+				status: "Done",
 			},
 			{
 				name: "react",
-				status: "pending",
+				status: "Pending",
 			},
 			{
 				name: "node",
-				status: "pending",
+				status: "Pending",
 			},
 		];
 		listHandler(_list);
-		listStatusHandler(["done", "pending"]);
+		listStatusHandler(["Done", "Pending"]);
 	}, []);
 
 	// check for small screens
@@ -42,10 +44,17 @@ function App() {
 		);
 	}
 
+	// add new list item in already existing status field
 	const newListItemInputHandler = (item, itemStatus) => {
-		// let _list = list;
-		console.log("trigg");
-		listHandler([...list, { name: item, status: itemStatus }]);
+    let name = item.current.value;
+    item.current.value = null;
+    listHandler([...list, { name, status: itemStatus }]);
+	};
+
+	// add new status list
+	const newStatusListInputHandler = (name) => {
+    statusInput.current.value = null;
+		listStatusHandler([...listStatus, name]);
 	};
 
 	// event handlers
@@ -98,15 +107,12 @@ function App() {
 						/>
 					);
 				})}
-				{/* <div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "pending")}>
-					<h1>Pending</h1>
-					{listStatus.pending}
+				<div className="addNewCategory">
+					<input ref={statusInput} placeholder="Add new category" className="categoryInput" />
+					<button onClick={() => newStatusListInputHandler(statusInput.current.value)} className="addCategoryButton">
+						Add
+					</button>
 				</div>
-
-				<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "done")}>
-					<h1>Done</h1>
-					{listStatus.done}
-				</div> */}
 			</div>
 		</div>
 	);

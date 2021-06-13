@@ -1,5 +1,6 @@
 .columnStatus {
 	width: 25%;
+    min-width: 220px;
 	text-align: center;
 }
 
