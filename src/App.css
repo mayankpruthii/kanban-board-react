@@ -35,6 +35,7 @@
   text-align: left;
 	margin-top: 0.25em;
 	padding: 0.5em;
-	background-color: #f8f8f8;
+	/* background-color: #f8f8f8; */
+	background-color: white;
   border-radius: 12px;
 }

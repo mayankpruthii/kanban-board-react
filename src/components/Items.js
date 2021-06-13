@@ -7,8 +7,20 @@ function Items(props) {
 	return (
 		<div className={classes.columnStatus}>
 			<h3 className={classes.statusHeading}>{status}</h3>
-			<div className={classes.list} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, status)}>
-				{listItemsSorted}
+			<div className={classes.list}>
+				{listItemsSorted.length !== 0 ? (
+					<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, status)}>
+						{listItemsSorted}
+					</div>
+				) : (
+					<div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, status)}>
+						Add items here
+					</div>
+				)}
+				<div className={classes.addListItem}>
+					<input placeholder="Add new task here" type="text" />
+					<button clasName={classes.addListItemButton}>Add</button>
+				</div>
 			</div>
 		</div>
 	);

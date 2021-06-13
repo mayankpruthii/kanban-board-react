@@ -11,12 +11,39 @@
 	background-color: #eaeaea;
 	margin: 0.2em;
     padding: 0.5em;
-    border-radius: 12px;
+    border-radius: 12px; 
+}
+
+.list div {
+    margin-top: 0.25em;
 }
 
 .listItem {
-	margin-top: 0.25em;
+	
 	padding: 0.25em;
 	background-color: #f8f8f8;
 	box-shadow: 1px 1px 5px #eaeaea;
+}
+
+.addListItem {
+    margin-top: 0.5em;
+    display: flex;
+    gap: 0.2em;
+}
+
+.addListItem input {
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    margin-top: 0.25em;
+	padding: 0.5em;
+}
+
+.addListItem button {
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
 }
